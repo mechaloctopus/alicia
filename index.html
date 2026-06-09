@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MoodSignal by Alicia is a research-informed wellness app concept for voice mood check-ins, breath meditation, daily reflection, sound-assisted relaxation, and emotional pattern tracking." />
+  <title>MoodSignal by Alicia</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap');
+
+    :root {
+      color-scheme: dark;
+      --ink: #f7f4ec;
+      --muted: #c8c1b2;
+      --dim: #8f887c;
+      --bg: #090b0b;
+      --panel: rgba(24, 27, 26, 0.72);
+      --panel-strong: rgba(31, 36, 34, 0.92);
+      --line: rgba(247, 244, 236, 0.13);
+      --teal: #66e0ca;
+      --moss: #9fc16f;
+      --amber: #f0bd67;
+      --coral: #ef786c;
+      --lavender: #b6a7ff;
+      --blue: #7db9ff;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+      --max: 1180px;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(102, 224, 202, 0.16), transparent 28rem),
+        radial-gradient(circle at 85% 18%, rgba(239, 120, 108, 0.12), transparent 24rem),
+        linear-gradient(180deg, #080908 0%, #101210 48%, #090b0b 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(247, 244, 236, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247, 244, 236, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 80%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--teal);
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -10rem;
+      z-index: 100;
+      background: var(--ink);
+      color: #101210;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(9, 11, 11, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(102, 224, 202, 0.42);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(102, 224, 202, 0.18), rgba(239, 120, 108, 0.16));
+      box-shadow: 0 0 24px rgba(102, 224, 202, 0.14);
+    }
+
+    .mark span {
+      width: 16px;
+      height: 16px;
+      display: block;
+      border: 2px solid var(--teal);
+      border-left-color: var(--coral);
+      border-radius: 50%;
+      animation: pulseMark 3.6s ease-in-out infinite;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.6rem 0.72rem;
+      border-radius: var(--radius);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink);
+      background: rgba(247, 244, 236, 0.08);
+    }
+
+    main {
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    #signalCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.95;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 42%;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(9, 11, 11, 0.94), transparent);
+      z-index: -1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(310px, 0.75fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+      padding: 72px 0 90px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin: 0 0 1.1rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 20px var(--teal);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 860px;
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(3.6rem, 8vw, 7.2rem);
+      font-weight: 650;
+    }
+
+    h1 span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(247, 244, 236, 0.54);
+      text-shadow: none;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin: 1.4rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.45rem);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 46px;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: rgba(247, 244, 236, 0.06);
+      max-width: 100%;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, #f4d08a, #ef786c);
+      color: #17100d;
+      border-color: transparent;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      color: var(--ink);
+      border-color: rgba(102, 224, 202, 0.4);
+    }
+
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.65rem;
+      max-width: 700px;
+      margin-top: 2.2rem;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      background: rgba(9, 11, 11, 0.52);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--ink);
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 0.32rem;
+      color: var(--dim);
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+    .phone-stage {
+      display: grid;
+      place-items: center;
+      min-height: 650px;
+      perspective: 1200px;
+    }
+
+    .phone {
+      width: min(360px, 88vw);
+      aspect-ratio: 0.49;
+      border-radius: 42px;
+      padding: 13px;
+      background: linear-gradient(155deg, rgba(247, 244, 236, 0.25), rgba(247, 244, 236, 0.05));
+      box-shadow: var(--shadow), 0 0 70px rgba(102, 224, 202, 0.12);
+      transform: rotateY(-10deg) rotateX(5deg);
+      border: 1px solid rgba(247, 244, 236, 0.24);
+    }
+
+    .phone-screen {
+      height: 100%;
+      overflow: hidden;
+      border-radius: 31px;
+      position: relative;
+      padding: 1.2rem;
+      background:
+        linear-gradient(180deg, rgba(9, 11, 11, 0.22), rgba(9, 11, 11, 0.92)),
+        radial-gradient(circle at 30% 0%, rgba(102, 224, 202, 0.24), transparent 13rem),
+        #101412;
+    }
+
+    .notch {
+      width: 94px;
+      height: 25px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0 0 18px 18px;
+      background: #090b0b;
+      z-index: 2;
+    }
+
+    .phone-top {
+      margin-top: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--moss);
+      box-shadow: 0 0 14px var(--moss);
+    }
+
+    .app-title {
+      margin-top: 1.25rem;
+      color: var(--ink);
+      font-family: Newsreader, Georgia, serif;
+      font-size: 2rem;
+      font-weight: 650;
+      line-height: 1.05;
+    }
+
+    .check-card {
+      margin-top: 1.2rem;
+      border: 1px solid rgba(247, 244, 236, 0.13);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.07);
+    }
+
+    .wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      height: 92px;
+    }
+
+    .wave i {
+      width: 5px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--teal);
+      animation: wave 1.3s ease-in-out infinite;
+      opacity: 0.9;
+    }
+
+    .wave i:nth-child(2n) {
+      background: var(--amber);
+      animation-delay: -0.35s;
+    }
+
+    .wave i:nth-child(3n) {
+      background: var(--coral);
+      animation-delay: -0.7s;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.7rem;
+      align-items: center;
+      margin-top: 0.8rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .bar {
+      height: 8px;
+      background: rgba(247, 244, 236, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), var(--amber));
+    }
+
+    .recommendation {
+      margin-top: 1rem;
+      padding: 0.85rem;
+      border: 1px solid rgba(159, 193, 111, 0.28);
+      border-radius: var(--radius);
+      background: rgba(159, 193, 111, 0.08);
+      color: #dfe8c9;
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    section {
+      padding: clamp(4.5rem, 9vw, 8rem) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.5fr);
+      gap: clamp(1.5rem, 5vw, 4rem);
+      align-items: end;
+      margin-bottom: 2.2rem;
+    }
+
+    .kicker {
+      color: var(--amber);
+      font-size: 0.76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+
+    h2 {
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 5.4rem);
+      font-weight: 650;
+    }
+
+    h3 {
+      font-size: clamp(1.15rem, 2vw, 1.55rem);
+      line-height: 1.13;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .section-copy {
+      font-size: 1.02rem;
+    }
+
+    .grid-4,
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      padding: 1.2rem;
+      min-width: 0;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+    }
+
+    .card p {
+      margin-top: 0.75rem;
+      font-size: 0.94rem;
+    }
+
+    .card .tag {
+      margin-top: 1rem;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(247, 244, 236, 0.13);
+      background: rgba(247, 244, 236, 0.06);
+      color: var(--teal);
+    }
+
+    .icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 28px;
+      padding: 0.32rem 0.55rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(247, 244, 236, 0.13);
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      background: rgba(247, 244, 236, 0.045);
+    }
+
+    .tag a {
+      text-decoration: underline;
+      text-decoration-color: rgba(102, 224, 202, 0.45);
+      text-underline-offset: 3px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(310px, 0.58fr);
+      gap: clamp(1.4rem, 4vw, 3rem);
+      align-items: start;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+    }
+
+    .feature-line {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .feature-line strong {
+      color: var(--ink);
+    }
+
+    .feature-line::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      margin-top: 0.45rem;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 16px rgba(102, 224, 202, 0.4);
+    }
+
+    .diagnostic-panel {
+      position: sticky;
+      top: 96px;
+      border: 1px solid rgba(102, 224, 202, 0.22);
+      border-radius: var(--radius);
+      background: var(--panel-strong);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-header strong {
+      font-size: 0.9rem;
+    }
+
+    .reading-prompt {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-left: 3px solid var(--amber);
+      background: rgba(240, 189, 103, 0.08);
+      color: #ead8b5;
+      line-height: 1.55;
+      font-family: Newsreader, Georgia, serif;
+      font-size: 1.16rem;
+    }
+
+    .signal-stack {
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .signal-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.9rem;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .signal-item span:last-child {
+      color: var(--ink);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(247, 244, 236, 0.03);
+    }
+
+    .flow-step {
+      min-height: 190px;
+      padding: 1.1rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .flow-step:last-child {
+      border-right: 0;
+    }
+
+    .flow-step span {
+      color: var(--dim);
+      font-size: 0.74rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .flow-step h3 {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .flow-step p {
+      margin-top: 0.8rem;
+      font-size: 0.88rem;
+    }
+
+    .practice-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(320px, 0.74fr);
+      gap: clamp(1rem, 3vw, 2rem);
+      align-items: stretch;
+    }
+
+    .breath-visual {
+      min-height: 420px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(102, 224, 202, 0.11), transparent 45%),
+        linear-gradient(315deg, rgba(240, 189, 103, 0.13), transparent 42%),
+        rgba(247, 244, 236, 0.035);
+    }
+
+    .breath-visual canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .breath-visual .breath-copy {
+      position: absolute;
+      left: 1.4rem;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      z-index: 1;
+    }
+
+    .breath-copy strong {
+      display: block;
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 0.95;
+    }
+
+    .breath-copy p {
+      max-width: 560px;
+      margin-top: 0.8rem;
+    }
+
+    .duration-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .duration {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.055);
+    }
+
+    .duration strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .duration span {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .stillness-map {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .body-node {
+      min-height: 96px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0.65rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: rgba(247, 244, 236, 0.045);
+    }
+
+    .body-node:nth-child(2n) {
+      color: #d7e6b9;
+      border-color: rgba(159, 193, 111, 0.24);
+    }
+
+    .body-node:nth-child(3n) {
+      color: #ffd1c9;
+      border-color: rgba(239, 120, 108, 0.26);
+    }
+
+    .message-wall {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .message-card {
+      min-height: 230px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.055);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .message-card:nth-child(2n) {
+      background: rgba(102, 224, 202, 0.07);
+    }
+
+    .message-card:nth-child(3n) {
+      background: rgba(240, 189, 103, 0.075);
+    }
+
+    .message-card small {
+      color: var(--dim);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .message-card p {
+      margin-top: 1rem;
+      font-family: Newsreader, Georgia, serif;
+      font-size: 1.35rem;
+      line-height: 1.18;
+      color: var(--ink);
+    }
+
+    .message-card span {
+      display: block;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .sound-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .sound-mode {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      background: rgba(247, 244, 236, 0.045);
+    }
+
+    .mode-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0.8rem;
+      align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mode-row:last-child {
+      border-bottom: 0;
+    }
+
+    .mode-row strong {
+      color: var(--ink);
+    }
+
+    .mode-row span {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .tech {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .tech-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.045);
+    }
+
+    .tech-card ul,
+    .source-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .tech-card li,
+    .source-card li {
+      color: var(--muted);
+      line-height: 1.48;
+      font-size: 0.92rem;
+    }
+
+    .tech-card li::before,
+    .source-card li::before {
+      content: "+";
+      color: var(--teal);
+      font-weight: 900;
+      margin-right: 0.55rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(230px, 1fr));
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.6rem;
+      scroll-snap-type: x proximity;
+    }
+
+    .idea-card {
+      min-height: 270px;
+      scroll-snap-align: start;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: var(--panel);
+    }
+
+    .idea-card span {
+      color: var(--amber);
+      font-size: 0.74rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .idea-card h3 {
+      margin-top: 1rem;
+    }
+
+    .idea-card p {
+      margin-top: 0.8rem;
+      font-size: 0.92rem;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .source-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.04);
+    }
+
+    .source-card h3 {
+      font-size: 1.08rem;
+    }
+
+    .source-card a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-color: rgba(102, 224, 202, 0.38);
+      text-underline-offset: 3px;
+    }
+
+    .disclaimer {
+      margin-top: 2rem;
+      border: 1px solid rgba(239, 120, 108, 0.32);
+      border-radius: var(--radius);
+      padding: 1rem;
+      color: #f2d4cf;
+      background: rgba(239, 120, 108, 0.08);
+      line-height: 1.6;
+    }
+
+    .footer {
+      padding: 3rem 0;
+      background: #070808;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .footer p {
+      font-size: 0.9rem;
+      color: var(--dim);
+    }
+
+    .footer strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes pulseMark {
+      0%, 100% {
+        transform: scale(0.78);
+        opacity: 0.62;
+      }
+      50% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes wave {
+      0%, 100% {
+        height: 18px;
+      }
+      50% {
+        height: 76px;
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .nav {
+        align-items: flex-start;
+        padding: 1rem 0;
+      }
+
+      .nav-links {
+        max-width: 650px;
+      }
+
+      .hero-grid,
+      .section-head,
+      .split,
+      .practice-band,
+      .sound-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-stage {
+        min-height: 570px;
+      }
+
+      .diagnostic-panel {
+        position: relative;
+        top: 0;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3,
+      .source-grid,
+      .message-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .flow-step:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .site-header {
+        position: relative;
+      }
+
+      .nav {
+        display: block;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+        margin-top: 0.75rem;
+      }
+
+      .nav-links a {
+        font-size: 0.78rem;
+        padding: 0.5rem 0.55rem;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        padding-top: 54px;
+      }
+
+      h1 {
+        font-size: clamp(2.9rem, 13.5vw, 3.75rem);
+        max-width: 100%;
+      }
+
+      .hero-actions .button {
+        flex: 1 1 100%;
+      }
+
+      .hero-proof,
+      .grid-4,
+      .grid-3,
+      .grid-2,
+      .source-grid,
+      .message-wall,
+      .tech {
+        grid-template-columns: 1fr;
+      }
+
+      .phone {
+        transform: none;
+      }
+
+      .phone-stage {
+        min-height: 500px;
+      }
+
+      .duration-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stillness-map {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .mode-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="MoodSignal by Alicia home">
+        <span class="mark" aria-hidden="true"><span></span></span>
+        <span>MoodSignal by Alicia</span>
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#pillars">Pillars</a>
+        <a href="#voice">Voice</a>
+        <a href="#flow">Daily Flow</a>
+        <a href="#breath">Breath</a>
+        <a href="#stillness">Stillness</a>
+        <a href="#messages">365</a>
+        <a href="#sound">Sound</a>
+        <a href="#tech">Tech</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-label="MoodSignal introduction">
+      <canvas id="signalCanvas" aria-hidden="true"></canvas>
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Research-informed emotional calibration</p>
+          <h1>MoodSignal <span>by Alicia</span></h1>
+          <p class="hero-copy">A daily wellness app that listens, reflects, breathes, and helps people return to balance through voice mood check-ins, breath meditation, stillness practice, daily devotionals, and sound-assisted relaxation.</p>
+          <div class="hero-actions" aria-label="Primary page links">
+            <a class="button primary" href="#voice">Explore the science</a>
+            <a class="button" href="#tech">View technical blueprint</a>
+          </div>
+          <div class="hero-proof" aria-label="MoodSignal concept highlights">
+            <div class="metric">
+              <strong>30-60s</strong>
+              <span>Daily voice sample designed for low-friction emotional self-checks.</span>
+            </div>
+            <div class="metric">
+              <strong>365</strong>
+              <span>Daily affirmations, devotionals, reflection prompts, and breath cues.</span>
+            </div>
+            <div class="metric">
+              <strong>4</strong>
+              <span>Core pillars: listen, reflect, breathe, and tune.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-stage" aria-label="App preview">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="notch" aria-hidden="true"></div>
+              <div class="phone-top">
+                <span>Daily signal</span>
+                <span class="status-dot" aria-hidden="true"></span>
+              </div>
+              <div class="app-title">How does your voice feel today?</div>
+              <div class="check-card">
+                <div class="wave" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="score-row">
+                  <span>Energy</span>
+                  <span>62</span>
+                  <div class="bar" aria-hidden="true"><span style="width: 62%"></span></div>
+                  <span></span>
+                </div>
+                <div class="score-row">
+                  <span>Calmness</span>
+                  <span>71</span>
+                  <div class="bar" aria-hidden="true"><span style="width: 71%"></span></div>
+                  <span></span>
+                </div>
+                <div class="score-row">
+                  <span>Stress signal</span>
+                  <span>Mild</span>
+                  <div class="bar" aria-hidden="true"><span style="width: 38%"></span></div>
+                  <span></span>
+                </div>
+              </div>
+              <div class="recommendation">Suggested reset: 15-minute breath meditation, then today's devotional reflection.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pillars">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">The product thesis</div>
+            <h2>Four pillars, one daily return.</h2>
+          </div>
+          <p class="section-copy">MoodSignal is not a clinical diagnosis engine. It is a wellness-first pattern mirror: a simple daily ritual that helps users notice shifts, choose a supportive practice, and build a private record of what helps.</p>
+        </div>
+
+        <div class="grid-4">
+          <article class="card reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 12h2m3 0h2m3 0h6M7 16V8m5 11V5m5 9v-4"/></svg>
+            </div>
+            <h3>Listen</h3>
+            <p>Capture a fixed reading and a short free-speech check-in. Compare acoustic and language patterns to the user's own baseline over time.</p>
+            <span class="tag"><a href="https://pubmed.ncbi.nlm.nih.gov/38882248/" target="_blank" rel="noopener">voice research</a></span>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+            </div>
+            <h3>Reflect</h3>
+            <p>Deliver one daily affirmation, devotional, gratitude cue, or grounded thought. Keep the language warm, simple, and non-denominational.</p>
+            <span class="tag"><a href="https://www.annualreviews.org/content/journals/10.1146/annurev-psych-010213-115137" target="_blank" rel="noopener">affirmation review</a></span>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 4c3 2 5 5 5 8a5 5 0 0 1-10 0c0-3 2-6 5-8z"/><path d="M12 13c2 1 3 3 3 5a3 3 0 0 1-6 0c0-2 1-4 3-5z"/></svg>
+            </div>
+            <h3>Breathe</h3>
+            <p>Offer quiet breath meditation sessions that remind users breath is life, awareness is trainable, and returning is the practice.</p>
+            <span class="tag"><a href="https://www.nature.com/articles/s41598-022-27247-y" target="_blank" rel="noopener">breathwork meta-analysis</a></span>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 12c2-4 4-4 6 0s4 4 6 0 4-4 4-4"/><path d="M4 17c2-3 4-3 6 0s4 3 6 0 4-3 4-3"/></svg>
+            </div>
+            <h3>Tune</h3>
+            <p>Use ambient sound, binaural beat options, isochronic tones, and sleep soundscapes as relaxation support without miracle-frequency claims.</p>
+            <span class="tag"><a href="https://www.mdpi.com/2076-3417/14/13/5675" target="_blank" rel="noopener">sound review</a></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="voice">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Voice mood diagnostics</div>
+            <h2>The voice becomes a private daily signal.</h2>
+          </div>
+          <p class="section-copy">Research links depression, stress, and emotional arousal to measurable speech changes, including pitch, speech rate, pauses, loudness, jitter, shimmer, spectral features, and language sentiment. MoodSignal should translate that research into cautious personal trend language.</p>
+        </div>
+
+        <div class="split">
+          <div class="reveal">
+            <h3>Three recording modes give the engine context without making the user work.</h3>
+            <div class="feature-list">
+              <div class="feature-line"><span><strong>Fixed reading prompt.</strong> Same paragraph each day for comparable pitch, pace, monotonicity, vocal energy, pause ratio, jitter, shimmer, and articulation.</span></div>
+              <div class="feature-line"><span><strong>Free speech prompt.</strong> A 30-60 second check-in such as "Talk about how you feel today" for natural language, hesitation, mood tone, and sentiment.</span></div>
+              <div class="feature-line"><span><strong>Guided emotional prompt.</strong> Questions like "What do you need most today?" help Alicia recommend a practice without pretending to diagnose.</span></div>
+              <div class="feature-line"><span><strong>Personal baseline.</strong> The most useful question is not "Does this person sound like a dataset?" It is "Does this person sound different from their own usual pattern?"</span></div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 1.3rem;">
+              <article class="card">
+                <h3>Output language</h3>
+                <p>Use human categories: mood tone, energy, calmness, stress signal, speech stability, and baseline shift.</p>
+              </article>
+              <article class="card">
+                <h3>Quality checks</h3>
+                <p>Flag background noise, clipping, low volume, speech duration, silence ratio, and microphone consistency.</p>
+              </article>
+              <article class="card">
+                <h3>Research posture</h3>
+                <p>Voice biomarkers are promising, especially for depression monitoring, but the site should always say validation matters.</p>
+              </article>
+            </div>
+          </div>
+
+          <aside class="diagnostic-panel reveal" aria-label="Example diagnostic output">
+            <div class="panel-header">
+              <strong>Example voice profile</strong>
+              <span class="tag">not diagnosis</span>
+            </div>
+            <div class="reading-prompt">"Today I will speak honestly, breathe gently, and notice what is here without making it my whole identity."</div>
+            <div class="signal-stack">
+              <div class="signal-item"><span>Mood tone</span><span>Reflective</span></div>
+              <div class="signal-item"><span>Energy</span><span>Moderate-low</span></div>
+              <div class="signal-item"><span>Calmness</span><span>Stable</span></div>
+              <div class="signal-item"><span>Stress signal</span><span>Mild elevation</span></div>
+              <div class="signal-item"><span>Baseline shift</span><span>Slightly quieter</span></div>
+            </div>
+            <p class="disclaimer">MoodSignal is a wellness and self-reflection tool, not a medical device, diagnosis, treatment, or substitute for professional care.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Daily flow</div>
+            <h2>Small ritual, strong continuity.</h2>
+          </div>
+          <p class="section-copy">MoodSignal should feel like a daily emotional calibration tool: a notification, a voice moment, a clear profile, one recommended practice, and a private trend line that becomes more meaningful over time.</p>
+        </div>
+
+        <div class="flow reveal">
+          <article class="flow-step">
+            <span>01</span>
+            <div>
+              <h3>Notification</h3>
+              <p>"Today, breathe before becoming the mood."</p>
+            </div>
+          </article>
+          <article class="flow-step">
+            <span>02</span>
+            <div>
+              <h3>Voice check-in</h3>
+              <p>Read one prompt, then speak freely for a short emotional snapshot.</p>
+            </div>
+          </article>
+          <article class="flow-step">
+            <span>03</span>
+            <div>
+              <h3>Mood profile</h3>
+              <p>See energy, calmness, stress signal, and baseline shift in plain language.</p>
+            </div>
+          </article>
+          <article class="flow-step">
+            <span>04</span>
+            <div>
+              <h3>Practice match</h3>
+              <p>Alicia recommends breath, stillness, reflection, journaling, or sound.</p>
+            </div>
+          </article>
+          <article class="flow-step">
+            <span>05</span>
+            <div>
+              <h3>Trend archive</h3>
+              <p>Private history shows what changes, what helps, and what patterns repeat.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="breath">
+      <div class="shell">
+        <div class="practice-band">
+          <div class="breath-visual reveal">
+            <canvas id="breathCanvas" aria-hidden="true"></canvas>
+            <div class="breath-copy">
+              <strong>Breath is life.</strong>
+              <p>Watch the breath come and go. Do not force it. Do not decorate it. Return to the touch of air and let awareness become simple again.</p>
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="kicker">Breath meditation</div>
+            <h2>Ancient attention, modern nervous-system support.</h2>
+            <p class="section-copy" style="margin-top: 1rem;">This section can mention Anapana as an ancient breath-awareness technique while keeping the app language accessible. The practice is intentionally minimal: sit still, feel the breath, notice wandering, return.</p>
+            <div class="duration-grid" style="margin-top: 1.3rem;">
+              <div class="duration"><strong>15</strong><span>Quick reset for stress, transition moments, and emotional interruption.</span></div>
+              <div class="duration"><strong>30</strong><span>Daily balance session with enough time for the mind to settle.</span></div>
+              <div class="duration"><strong>45</strong><span>Deep practice for emotional regulation and awareness training.</span></div>
+              <div class="duration"><strong>60</strong><span>Long sit for users building a serious meditation rhythm.</span></div>
+            </div>
+            <p class="disclaimer">The research supports breathwork as a promising stress and mental-health support, while also warning against hype. MoodSignal should keep the claim precise: supportive practice, not cure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stillness">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Perfect Stillness</div>
+            <h2>Quiet mental chatter by listening to the body.</h2>
+          </div>
+          <p class="section-copy">Perfect Stillness is the accessible product name for body-based awareness practice. It is inspired by body-scan and insight-meditation traditions: move attention through the body, feel what is actually there, release judgment, and move on.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card reveal">
+            <h3>The practice script</h3>
+            <p>Start at the top of the head. Rest attention on one area until sensation is noticed: pressure, warmth, tingling, pulsing, numbness, or nothing at all. Once something is known clearly, move to the next area. The goal is not drama. The goal is contact with reality as it is.</p>
+            <div class="feature-list">
+              <div class="feature-line"><span>No chasing pleasant sensations.</span></div>
+              <div class="feature-line"><span>No fighting unpleasant sensations.</span></div>
+              <div class="feature-line"><span>No story needed, just observation.</span></div>
+            </div>
+          </article>
+          <article class="card reveal">
+            <h3>Why it belongs in MoodSignal</h3>
+            <p>Voice analysis gives a signal. Perfect Stillness gives a response. The practice trains users to notice sensations before turning them into identity, narrative, or reaction.</p>
+            <div class="stillness-map" aria-label="Body awareness sequence">
+              <div class="body-node">Head</div>
+              <div class="body-node">Face</div>
+              <div class="body-node">Throat</div>
+              <div class="body-node">Chest</div>
+              <div class="body-node">Belly</div>
+              <div class="body-node">Back</div>
+              <div class="body-node">Arms</div>
+              <div class="body-node">Hands</div>
+              <div class="body-node">Pelvis</div>
+              <div class="body-node">Legs</div>
+              <div class="body-node">Feet</div>
+              <div class="body-node">Whole body</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="messages">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">365 daily messages</div>
+            <h2>One year of small, steady returns.</h2>
+          </div>
+          <p class="section-copy">The notification library should mix affirmations, devotionals, thoughts, positive quotes, gratitude prompts, breath cues, and one-minute actions. The tone should be warm, spiritual, and broad enough for many users.</p>
+        </div>
+
+        <div class="message-wall">
+          <article class="message-card reveal">
+            <small>Affirmation</small>
+            <p>You do not need to win the whole day. Win the next minute.</p>
+            <span>Action: take three slow breaths before answering the next demand.</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Devotional</small>
+            <p>Grace can begin as a single honest breath.</p>
+            <span>Reflection: what part of you is asking to be met with gentleness?</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Breath cue</small>
+            <p>Your breath is proof that life is still arriving.</p>
+            <span>Practice: feel the air touch the upper lip for five breaths.</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Grounding</small>
+            <p>Your mood is weather. Your awareness is sky.</p>
+            <span>Action: name one sensation, one sound, and one next step.</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Gratitude</small>
+            <p>Find one small thing that did not abandon you today.</p>
+            <span>Reflection: write a sentence of thanks without forcing positivity.</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Stillness</small>
+            <p>Peace is trained one quiet return at a time.</p>
+            <span>Practice: scan from forehead to heart and move on when sensation appears.</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Resilience</small>
+            <p>You are allowed to begin again without making a speech about it.</p>
+            <span>Action: choose the next clean action and let it be enough.</span>
+          </article>
+          <article class="message-card reveal">
+            <small>Thought</small>
+            <p>Do one honest thing before you ask yourself to feel different.</p>
+            <span>Reflection: what truth can be acted on gently today?</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sound">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Frequency-assisted relaxation</div>
+            <h2>Sound as support, not spectacle.</h2>
+          </div>
+          <p class="section-copy">MoodSignal can include binaural beats, isochronic tones, ambient music, sleep soundscapes, and breath-and-tone sessions. The evidence language should stay careful: these are relaxation aids, not medical claims.</p>
+        </div>
+
+        <div class="sound-grid">
+          <article class="sound-mode reveal">
+            <h3>Headphones or speakers?</h3>
+            <p style="margin-top: 0.8rem;">Binaural beats require separate left and right channels, so they belong in headphone mode. Speaker mode should use ambient music, isochronic pulses, nature textures, or gentle drones.</p>
+            <div class="feature-list">
+              <div class="feature-line"><span><strong>Headphones:</strong> binaural beat sessions for calm, focus, rest, and meditation.</span></div>
+              <div class="feature-line"><span><strong>Speakers:</strong> ambient, isochronic, rain, low drones, soft bells, and guided breath.</span></div>
+            </div>
+          </article>
+          <article class="sound-mode reveal">
+            <div class="mode-row"><strong>Calm Reset</strong><span>15-minute alpha/theta style ambient track after a tense voice signal.</span></div>
+            <div class="mode-row"><strong>Breath + Tone</strong><span>Soft drone, breath bell, and gentle pacing cues for breath meditation.</span></div>
+            <div class="mode-row"><strong>Deep Grounding</strong><span>30-minute low ambient soundscape for evening downshift.</span></div>
+            <div class="mode-row"><strong>Sleep Descent</strong><span>Delta-style soundscape with no claims beyond relaxation and rest support.</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Technical blueprint</div>
+            <h2>Build the app as a privacy-aware mobile system.</h2>
+          </div>
+          <p class="section-copy">The website should show that the idea is not just beautiful. It is technically buildable with React Native, Expo, Firebase, careful audio capture, optional ML services, and a realistic validation roadmap.</p>
+        </div>
+
+        <div class="tech">
+          <article class="tech-card reveal">
+            <h3>Mobile app</h3>
+            <ul>
+              <li>React Native + Expo for iOS and Android velocity.</li>
+              <li>Expo audio recording, push notifications, and local session timers.</li>
+              <li>Firebase Auth with Google sign-in if accounts are needed.</li>
+              <li>Firestore for user profile, check-ins, practice history, and daily content state.</li>
+              <li>Encrypted storage path for audio, with a delete-after-feature-extraction option.</li>
+            </ul>
+          </article>
+          <article class="tech-card reveal">
+            <h3>Voice and ML pipeline</h3>
+            <ul>
+              <li>Audio quality gate: duration, noise, clipping, volume, and voice activity.</li>
+              <li>Acoustic extraction with openSMILE, librosa, Praat/Parselmouth, or equivalent services.</li>
+              <li>Optional transcription with Whisper for sentiment and reflection analysis.</li>
+              <li>Model path: baseline rules, then XGBoost/LightGBM, then speech embeddings such as wav2vec 2.0 or WavLM.</li>
+              <li>Clinical-grade layer later: consent, validated scales, blinded labels, longitudinal study design.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="grid-3" style="margin-top: 1rem;">
+          <article class="card reveal">
+            <h3>Validated screeners</h3>
+            <p>PHQ-9 and GAD-7 can be optional self-report screeners, clearly labeled as validated tools rather than MoodSignal diagnoses.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Safety posture</h3>
+            <p>Use crisis-aware language, clear escalation pathways, and reminders that severe symptoms deserve professional support.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Privacy posture</h3>
+            <p>Default to minimal data, user deletion controls, consent-based research use, and local-first analysis where feasible.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Possible features to add</div>
+            <h2>Make Alicia feel fully outfitted.</h2>
+          </div>
+          <p class="section-copy">These are high-leverage additions that deepen personalization, safety, and credibility without turning MoodSignal into a noisy social app.</p>
+        </div>
+
+        <div class="features reveal" aria-label="Possible future feature ideas">
+          <article class="idea-card">
+            <span>01</span>
+            <h3>Adaptive practice recommendations</h3>
+            <p>Use voice baseline, check-in history, time of day, and past practice outcomes to suggest the smallest useful reset.</p>
+          </article>
+          <article class="idea-card">
+            <span>02</span>
+            <h3>Private journal with mood-linked prompts</h3>
+            <p>Give prompts based on the day's signal, then surface sentiment trends and recurring themes only to the user.</p>
+          </article>
+          <article class="idea-card">
+            <span>03</span>
+            <h3>Wearable recovery context</h3>
+            <p>Connect sleep, HRV, steps, and resting heart rate so Alicia can distinguish low mood from low recovery.</p>
+          </article>
+          <article class="idea-card">
+            <span>04</span>
+            <h3>Crisis-aware safety flow</h3>
+            <p>When severe distress language appears, route to grounding tools, trusted contacts, and professional support resources.</p>
+          </article>
+          <article class="idea-card">
+            <span>05</span>
+            <h3>Personal Alicia coach</h3>
+            <p>Summarize patterns weekly and suggest tiny next steps with a calm, non-clinical, supportive voice.</p>
+          </article>
+          <article class="idea-card">
+            <span>06</span>
+            <h3>Consistency without comparison</h3>
+            <p>Use private streaks, seasonal practices, and completion rituals without leaderboards or social pressure.</p>
+          </article>
+          <article class="idea-card">
+            <span>07</span>
+            <h3>User-controlled export mode</h3>
+            <p>Create a clean PDF summary of mood trends, practices, and screeners that users can choose to share with a clinician.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Research library</div>
+            <h2>Every claim gets a source and a boundary.</h2>
+          </div>
+          <p class="section-copy">The science layer should make the page credible without pretending the evidence is stronger than it is. Each citation below connects directly to a MoodSignal feature and states why it matters.</p>
+        </div>
+
+        <div class="source-grid">
+          <article class="source-card reveal">
+            <h3>Voice mood signal</h3>
+            <ul>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/38882248/" target="_blank" rel="noopener">Smartphone voice scoping review</a>: supports phone-based voice data as a promising depression monitoring input.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12590051/" target="_blank" rel="noopener">Automatic speech meta-analysis</a>: frames ASA as an emerging objective depression biomarker area.</li>
+              <li><a href="https://link.springer.com/article/10.1186/s12888-024-06253-6" target="_blank" rel="noopener">BMC Psychiatry 2024</a>: links acoustic and linguistic speech features with MDD symptom patterns.</li>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/41102940/" target="_blank" rel="noopener">Voice stress biomarker review</a>: supports fundamental frequency as a stress-related voice signal.</li>
+            </ul>
+          </article>
+
+          <article class="source-card reveal">
+            <h3>Breath and stillness</h3>
+            <ul>
+              <li><a href="https://www.nature.com/articles/s41598-022-27247-y" target="_blank" rel="noopener">Breathwork meta-analysis</a>: finds breathwork associated with lower stress, anxiety, and depressive symptoms, with caution.</li>
+              <li><a href="https://doi.org/10.1001/jamainternmed.2013.13018" target="_blank" rel="noopener">JAMA mindfulness meta-analysis</a>: supports mindfulness programs for psychological stress and well-being outcomes.</li>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/35538557/" target="_blank" rel="noopener">Body scan meta-analysis</a>: useful for framing Perfect Stillness while acknowledging mixed effects for body scan alone.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12558566/" target="_blank" rel="noopener">Vipassana evidence review</a>: background support for insight-style awareness practices without using that label in product copy.</li>
+            </ul>
+          </article>
+
+          <article class="source-card reveal">
+            <h3>Reflection and mobile support</h3>
+            <ul>
+              <li><a href="https://www.annualreviews.org/content/journals/10.1146/annurev-psych-010213-115137" target="_blank" rel="noopener">Self-affirmation review</a>: supports values-based affirmation as a low-friction psychological intervention.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10393216/" target="_blank" rel="noopener">Gratitude meta-analysis</a>: supports gratitude prompts as one evidence-informed reflection format.</li>
+              <li><a href="https://bmcpublichealth.biomedcentral.com/articles/10.1186/1471-2458-13-119" target="_blank" rel="noopener">Positive psychology meta-analysis</a>: gives broader context for positive activity interventions.</li>
+              <li><a href="https://www.mdpi.com/2076-3417/14/13/5675" target="_blank" rel="noopener">Binaural beats review</a>: supports careful sound-session language.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8550316/" target="_blank" rel="noopener">EMA well-being review</a>: supports phone-based momentary mood and well-being measurement.</li>
+              <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0248152" target="_blank" rel="noopener">Ecological momentary interventions</a>: supports just-in-time app interventions.</li>
+              <li><a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000002" target="_blank" rel="noopener">Mobile mental-health meta-review</a>: supports potential while emphasizing evidence limits.</li>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/11556941/" target="_blank" rel="noopener">PHQ-9 validation</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/16717171/" target="_blank" rel="noopener">GAD-7 validation</a>: optional validated self-report screeners.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="disclaimer">Scientific citations on this website support the product rationale. They do not mean MoodSignal has been clinically validated. Any future clinical claims should require a formal validation study, careful safety review, and appropriate regulatory guidance.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div>
+        <strong>MoodSignal by Alicia</strong>
+        <p>A research-informed wellness concept for daily emotional calibration: listen, reflect, breathe, and tune.</p>
+      </div>
+      <a class="button" href="#top">Back to top</a>
+    </div>
+  </footer>
+
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+    const sections = navLinks
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const activeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-42% 0px -52% 0px', threshold: 0 });
+
+    sections.forEach((section) => activeObserver.observe(section));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
+
+    function setupCanvas(canvas, draw) {
+      const context = canvas.getContext('2d');
+      let width = 0;
+      let height = 0;
+      let frame = 0;
+
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(1, Math.floor(rect.width * ratio));
+        height = Math.max(1, Math.floor(rect.height * ratio));
+        canvas.width = width;
+        canvas.height = height;
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      }
+
+      function loop() {
+        frame += reduceMotion ? 0 : 1;
+        draw(context, canvas.clientWidth, canvas.clientHeight, frame);
+        if (!reduceMotion) requestAnimationFrame(loop);
+      }
+
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      loop();
+    }
+
+    const signalCanvas = document.getElementById('signalCanvas');
+    setupCanvas(signalCanvas, (ctx, width, height, frame) => {
+      ctx.clearRect(0, 0, width, height);
+
+      const centerY = height * 0.46;
+      const lines = 7;
+      for (let j = 0; j < lines; j += 1) {
+        const offset = (j - Math.floor(lines / 2)) * 34;
+        ctx.beginPath();
+        for (let x = -20; x <= width + 20; x += 16) {
+          const amp = 34 + j * 5;
+          const y = centerY + offset
+            + Math.sin((x * 0.012) + frame * 0.018 + j) * amp
+            + Math.sin((x * 0.026) - frame * 0.012) * 10;
+          if (x === -20) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = j % 3 === 0
+          ? 'rgba(102, 224, 202, 0.24)'
+          : j % 3 === 1
+            ? 'rgba(240, 189, 103, 0.18)'
+            : 'rgba(239, 120, 108, 0.16)';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+
+      for (let i = 0; i < 90; i += 1) {
+        const x = (i * 131 + frame * 0.18) % (width + 80) - 40;
+        const y = (Math.sin(i * 12.9898) * 43758.5453 % 1) * height;
+        const size = 1 + (i % 4) * 0.45;
+        ctx.fillStyle = i % 5 === 0 ? 'rgba(240, 189, 103, 0.42)' : 'rgba(247, 244, 236, 0.22)';
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+
+    const breathCanvas = document.getElementById('breathCanvas');
+    setupCanvas(breathCanvas, (ctx, width, height, frame) => {
+      ctx.clearRect(0, 0, width, height);
+      const cx = width * 0.5;
+      const cy = height * 0.43;
+      const t = reduceMotion ? 0.55 : (Math.sin(frame * 0.028) + 1) / 2;
+      const rings = 9;
+
+      for (let i = 0; i < rings; i += 1) {
+        const radius = 42 + i * 24 + t * 18;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = i % 2 === 0 ? 'rgba(102, 224, 202, 0.17)' : 'rgba(240, 189, 103, 0.13)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, 60 + t * 18, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(247, 244, 236, 0.065)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(102, 224, 202, 0.42)';
+      ctx.stroke();
+    });
+  </script>
+</body>
+</html>
