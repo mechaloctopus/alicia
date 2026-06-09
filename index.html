@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MoodSignal by Alicia is a research-informed wellness app concept for voice mood check-ins, breath meditation, daily reflection, sound-assisted relaxation, and emotional pattern tracking." />
-  <title>MoodSignal by Alicia</title>
+  <meta name="description" content="MoodSignal is a research-informed wellness app concept for voice mood check-ins, breath meditation, daily reflection, sound-assisted relaxation, and emotional pattern tracking." />
+  <title>MoodSignal</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap');
 
@@ -706,6 +706,137 @@
       font-size: 0.88rem;
     }
 
+    .goal-system {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .goal-builder,
+    .lifestyle-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.045);
+    }
+
+    .goal-builder {
+      background:
+        radial-gradient(circle at 88% 12%, rgba(102, 224, 202, 0.14), transparent 9rem),
+        rgba(247, 244, 236, 0.045);
+    }
+
+    .goal-field {
+      display: grid;
+      gap: 0.32rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .goal-field:last-child {
+      border-bottom: 0;
+    }
+
+    .goal-field small {
+      color: var(--amber);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .goal-field strong {
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .goal-chips,
+    .sleep-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .goal-chip,
+    .sleep-chip {
+      border: 1px solid rgba(247, 244, 236, 0.14);
+      border-radius: var(--radius);
+      padding: 0.45rem 0.6rem;
+      color: var(--muted);
+      background: rgba(9, 11, 11, 0.28);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .lifestyle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .fasting-ritual {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(300px, 0.62fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .fasting-window {
+      border: 1px solid rgba(240, 189, 103, 0.26);
+      border-radius: var(--radius);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      background:
+        linear-gradient(145deg, rgba(240, 189, 103, 0.09), rgba(102, 224, 202, 0.055)),
+        rgba(247, 244, 236, 0.035);
+    }
+
+    .fasting-window strong {
+      display: block;
+      color: var(--ink);
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.9;
+    }
+
+    .fasting-window span {
+      display: block;
+      margin-top: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .sleep-system {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.6fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .bedroom-card {
+      min-height: 420px;
+      border: 1px solid rgba(102, 224, 202, 0.22);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(102, 224, 202, 0.1), transparent 8rem),
+        linear-gradient(180deg, rgba(9, 11, 11, 0.12), rgba(9, 11, 11, 0.72)),
+        rgba(247, 244, 236, 0.035);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .moon {
+      width: 142px;
+      height: 142px;
+      margin: 2rem auto;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(247, 244, 236, 0.9), rgba(182, 167, 255, 0.16) 48%, rgba(102, 224, 202, 0.08) 70%);
+      box-shadow: 0 0 80px rgba(102, 224, 202, 0.16);
+      opacity: 0.5;
+    }
+
     .practice-band {
       display: grid;
       grid-template-columns: minmax(0, 0.8fr) minmax(320px, 0.74fr);
@@ -809,6 +940,101 @@
       border-color: rgba(239, 120, 108, 0.26);
     }
 
+    .meta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.74fr) minmax(320px, 0.86fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .meta-prayer {
+      border: 1px solid rgba(240, 189, 103, 0.28);
+      border-radius: var(--radius);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      background:
+        linear-gradient(145deg, rgba(240, 189, 103, 0.1), rgba(102, 224, 202, 0.045)),
+        rgba(247, 244, 236, 0.04);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .meta-prayer blockquote {
+      margin: 0;
+      color: var(--ink);
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.02;
+    }
+
+    .meta-prayer p {
+      margin-top: 1.2rem;
+    }
+
+    .relation-spiral {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.04);
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .relation-row {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.75rem;
+      border: 1px solid rgba(247, 244, 236, 0.1);
+      border-radius: var(--radius);
+      background: rgba(9, 11, 11, 0.28);
+    }
+
+    .relation-row strong:first-child {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      color: #17100d;
+      background: linear-gradient(135deg, var(--amber), var(--coral));
+      font-size: 0.84rem;
+    }
+
+    .relation-row span {
+      display: block;
+      color: var(--muted);
+      margin-top: 0.28rem;
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .cleanse-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .cleanse-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.045);
+      min-height: 180px;
+    }
+
+    .cleanse-card h3 {
+      font-size: 1.02rem;
+    }
+
+    .cleanse-card p {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
     .message-wall {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -856,6 +1082,89 @@
       line-height: 1.45;
     }
 
+    .content-lab {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.7fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: stretch;
+    }
+
+    .affirmation-demo,
+    .quote-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.045);
+    }
+
+    .affirmation-frame {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.1rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(102, 224, 202, 0.22);
+      background:
+        radial-gradient(circle at 80% 18%, rgba(102, 224, 202, 0.16), transparent 8rem),
+        rgba(9, 11, 11, 0.36);
+    }
+
+    .affirmation-frame small,
+    .quote-panel small,
+    .tuner-panel small {
+      color: var(--amber);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    #affirmationText {
+      margin-top: 1rem;
+      color: var(--ink);
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: 1.03;
+    }
+
+    .affirmation-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+      color: var(--dim);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .quote-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .quote-item {
+      padding: 0.9rem;
+      border: 1px solid rgba(247, 244, 236, 0.1);
+      border-radius: var(--radius);
+      background: rgba(9, 11, 11, 0.25);
+    }
+
+    .quote-item p {
+      color: var(--ink);
+      font-family: Newsreader, Georgia, serif;
+      font-size: 1.18rem;
+      line-height: 1.25;
+    }
+
+    .quote-item span {
+      display: block;
+      margin-top: 0.45rem;
+      color: var(--dim);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
     .sound-grid {
       display: grid;
       grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
@@ -891,6 +1200,77 @@
       color: var(--muted);
       line-height: 1.5;
       font-size: 0.9rem;
+    }
+
+    .tune-up {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.76fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tuner-panel {
+      border: 1px solid rgba(102, 224, 202, 0.22);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background:
+        linear-gradient(155deg, rgba(102, 224, 202, 0.08), rgba(240, 189, 103, 0.06)),
+        rgba(247, 244, 236, 0.035);
+    }
+
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin: 1rem 0;
+    }
+
+    .preset-button {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      min-height: 42px;
+      background: rgba(247, 244, 236, 0.055);
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .preset-button.active,
+    .preset-button:hover {
+      color: #17100d;
+      background: linear-gradient(135deg, var(--teal), var(--amber));
+      border-color: transparent;
+    }
+
+    .frequency-readout {
+      padding: 1rem;
+      border-radius: var(--radius);
+      background: rgba(9, 11, 11, 0.42);
+      border: 1px solid rgba(247, 244, 236, 0.11);
+    }
+
+    .frequency-readout strong {
+      display: block;
+      color: var(--ink);
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 4.7rem);
+      line-height: 0.92;
+    }
+
+    .frequency-readout span {
+      display: block;
+      margin-top: 0.7rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .tuner-specs {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: rgba(247, 244, 236, 0.04);
     }
 
     .tech {
@@ -932,20 +1312,19 @@
 
     .features {
       display: grid;
-      grid-template-columns: repeat(7, minmax(230px, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 1rem;
-      overflow-x: auto;
-      padding-bottom: 0.6rem;
-      scroll-snap-type: x proximity;
     }
 
     .idea-card {
-      min-height: 270px;
-      scroll-snap-align: start;
+      min-height: 292px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 1rem;
       background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .idea-card span {
@@ -962,6 +1341,19 @@
     .idea-card p {
       margin-top: 0.8rem;
       font-size: 0.92rem;
+    }
+
+    .evidence-link {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin-top: 1rem;
+      color: var(--teal);
+      font-size: 0.74rem;
+      font-weight: 900;
+      text-decoration: underline;
+      text-decoration-color: rgba(102, 224, 202, 0.35);
+      text-underline-offset: 3px;
     }
 
     .source-grid {
@@ -1085,11 +1477,25 @@
 
       .grid-3,
       .source-grid,
-      .message-wall {
+      .message-wall,
+      .cleanse-grid,
+      .features {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .meta-grid,
+      .content-lab,
+      .tune-up {
+        grid-template-columns: 1fr;
+      }
+
       .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .goal-system,
+      .fasting-ritual,
+      .sleep-system {
         grid-template-columns: 1fr;
       }
 
@@ -1150,6 +1556,9 @@
       .grid-2,
       .source-grid,
       .message-wall,
+      .cleanse-grid,
+      .lifestyle-grid,
+      .features,
       .tech {
         grid-template-columns: 1fr;
       }
@@ -1171,6 +1580,10 @@
       }
 
       .mode-row {
+        grid-template-columns: 1fr;
+      }
+
+      .preset-buttons {
         grid-template-columns: 1fr;
       }
 
@@ -1196,19 +1609,24 @@
 
   <header class="site-header">
     <div class="shell nav">
-      <a class="brand" href="#top" aria-label="MoodSignal by Alicia home">
+      <a class="brand" href="#top" aria-label="MoodSignal home">
         <span class="mark" aria-hidden="true"><span></span></span>
-        <span>MoodSignal by Alicia</span>
+        <span>MoodSignal</span>
       </a>
       <nav class="nav-links" aria-label="Page sections">
         <a href="#pillars">Pillars</a>
         <a href="#voice">Voice</a>
         <a href="#flow">Daily Flow</a>
+        <a href="#goals">Goals</a>
         <a href="#breath">Breath</a>
         <a href="#stillness">Stillness</a>
+        <a href="#meta">Meta</a>
         <a href="#messages">365</a>
+        <a href="#fasting">Fasting</a>
+        <a href="#sleep">Sleep</a>
         <a href="#sound">Sound</a>
         <a href="#tech">Tech</a>
+        <a href="#premium">Premium</a>
         <a href="#sources">Sources</a>
       </nav>
     </div>
@@ -1220,8 +1638,8 @@
       <div class="shell hero-grid">
         <div>
           <p class="eyebrow">Research-informed emotional calibration</p>
-          <h1>MoodSignal <span>by Alicia</span></h1>
-          <p class="hero-copy">A daily wellness app that listens, reflects, breathes, and helps people return to balance through voice mood check-ins, breath meditation, stillness practice, daily devotionals, and sound-assisted relaxation.</p>
+          <h1>MoodSignal <span>daily clarity</span></h1>
+          <p class="hero-copy">A wellness app for reading your daily emotional signal, then returning to balance with breath, stillness, reflection, and sound.</p>
           <div class="hero-actions" aria-label="Primary page links">
             <a class="button primary" href="#voice">Explore the science</a>
             <a class="button" href="#tech">View technical blueprint</a>
@@ -1288,7 +1706,7 @@
             <div class="kicker">The product thesis</div>
             <h2>Four pillars, one daily return.</h2>
           </div>
-          <p class="section-copy">MoodSignal is not a clinical diagnosis engine. It is a wellness-first pattern mirror: a simple daily ritual that helps users notice shifts, choose a supportive practice, and build a private record of what helps.</p>
+          <p class="section-copy">MoodSignal turns a short daily check-in into a calm record of patterns, practices, and progress. The app helps users notice shifts early and choose one useful reset.</p>
         </div>
 
         <div class="grid-4">
@@ -1297,7 +1715,7 @@
               <svg viewBox="0 0 24 24"><path d="M4 12h2m3 0h2m3 0h6M7 16V8m5 11V5m5 9v-4"/></svg>
             </div>
             <h3>Listen</h3>
-            <p>Capture a fixed reading and a short free-speech check-in. Compare acoustic and language patterns to the user's own baseline over time.</p>
+            <p>Capture a fixed reading and short free speech sample. Compare voice patterns to the user's own baseline.</p>
             <span class="tag"><a href="https://pubmed.ncbi.nlm.nih.gov/38882248/" target="_blank" rel="noopener">voice research</a></span>
           </article>
 
@@ -1306,7 +1724,7 @@
               <svg viewBox="0 0 24 24"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
             </div>
             <h3>Reflect</h3>
-            <p>Deliver one daily affirmation, devotional, gratitude cue, or grounded thought. Keep the language warm, simple, and non-denominational.</p>
+            <p>Send one daily affirmation, devotional, gratitude cue, or grounded thought with a short action step.</p>
             <span class="tag"><a href="https://www.annualreviews.org/content/journals/10.1146/annurev-psych-010213-115137" target="_blank" rel="noopener">affirmation review</a></span>
           </article>
 
@@ -1315,7 +1733,7 @@
               <svg viewBox="0 0 24 24"><path d="M12 4c3 2 5 5 5 8a5 5 0 0 1-10 0c0-3 2-6 5-8z"/><path d="M12 13c2 1 3 3 3 5a3 3 0 0 1-6 0c0-2 1-4 3-5z"/></svg>
             </div>
             <h3>Breathe</h3>
-            <p>Offer quiet breath meditation sessions that remind users breath is life, awareness is trainable, and returning is the practice.</p>
+            <p>Offer quiet breath sessions that train return, steadiness, and nervous-system downshift.</p>
             <span class="tag"><a href="https://www.nature.com/articles/s41598-022-27247-y" target="_blank" rel="noopener">breathwork meta-analysis</a></span>
           </article>
 
@@ -1324,7 +1742,7 @@
               <svg viewBox="0 0 24 24"><path d="M4 12c2-4 4-4 6 0s4 4 6 0 4-4 4-4"/><path d="M4 17c2-3 4-3 6 0s4 3 6 0 4-3 4-3"/></svg>
             </div>
             <h3>Tune</h3>
-            <p>Use ambient sound, binaural beat options, isochronic tones, and sleep soundscapes as relaxation support without miracle-frequency claims.</p>
+            <p>Use ambient sound, binaural options, isochronic tones, and sleep soundscapes for structured relaxation.</p>
             <span class="tag"><a href="https://www.mdpi.com/2076-3417/14/13/5675" target="_blank" rel="noopener">sound review</a></span>
           </article>
         </div>
@@ -1338,31 +1756,31 @@
             <div class="kicker">Voice mood diagnostics</div>
             <h2>The voice becomes a private daily signal.</h2>
           </div>
-          <p class="section-copy">Research links depression, stress, and emotional arousal to measurable speech changes, including pitch, speech rate, pauses, loudness, jitter, shimmer, spectral features, and language sentiment. MoodSignal should translate that research into cautious personal trend language.</p>
+          <p class="section-copy">Speech carries measurable signals: pitch, pace, pauses, loudness, jitter, shimmer, spectral features, and language tone. MoodSignal translates those signals into personal trends.</p>
         </div>
 
         <div class="split">
           <div class="reveal">
-            <h3>Three recording modes give the engine context without making the user work.</h3>
+            <h3>Three recording modes keep the signal consistent and personal.</h3>
             <div class="feature-list">
-              <div class="feature-line"><span><strong>Fixed reading prompt.</strong> Same paragraph each day for comparable pitch, pace, monotonicity, vocal energy, pause ratio, jitter, shimmer, and articulation.</span></div>
-              <div class="feature-line"><span><strong>Free speech prompt.</strong> A 30-60 second check-in such as "Talk about how you feel today" for natural language, hesitation, mood tone, and sentiment.</span></div>
-              <div class="feature-line"><span><strong>Guided emotional prompt.</strong> Questions like "What do you need most today?" help Alicia recommend a practice without pretending to diagnose.</span></div>
-              <div class="feature-line"><span><strong>Personal baseline.</strong> The most useful question is not "Does this person sound like a dataset?" It is "Does this person sound different from their own usual pattern?"</span></div>
+              <div class="feature-line"><span><strong>Fixed reading.</strong> Same passage each day for comparable pitch, pace, energy, pause ratio, jitter, shimmer, and articulation.</span></div>
+              <div class="feature-line"><span><strong>Free speech.</strong> A 30-60 second check-in for language tone, hesitation, rhythm, and emotional content.</span></div>
+              <div class="feature-line"><span><strong>Guided prompt.</strong> Questions like "What do you need most today?" connect the signal to the next practice.</span></div>
+              <div class="feature-line"><span><strong>Personal baseline.</strong> The strongest signal is the user's own change over time.</span></div>
             </div>
 
             <div class="grid-3" style="margin-top: 1.3rem;">
               <article class="card">
                 <h3>Output language</h3>
-                <p>Use human categories: mood tone, energy, calmness, stress signal, speech stability, and baseline shift.</p>
+                <p>Mood tone, energy, calmness, stress signal, speech stability, and baseline shift.</p>
               </article>
               <article class="card">
                 <h3>Quality checks</h3>
-                <p>Flag background noise, clipping, low volume, speech duration, silence ratio, and microphone consistency.</p>
+                <p>Noise, clipping, volume, speech duration, silence ratio, and microphone consistency.</p>
               </article>
               <article class="card">
                 <h3>Research posture</h3>
-                <p>Voice biomarkers are promising, especially for depression monitoring, but the site should always say validation matters.</p>
+                <p>Voice biomarkers are promising. Validation, consent, and clear boundaries keep the product honest.</p>
               </article>
             </div>
           </div>
@@ -1370,7 +1788,7 @@
           <aside class="diagnostic-panel reveal" aria-label="Example diagnostic output">
             <div class="panel-header">
               <strong>Example voice profile</strong>
-              <span class="tag">not diagnosis</span>
+              <span class="tag">wellness signal</span>
             </div>
             <div class="reading-prompt">"Today I will speak honestly, breathe gently, and notice what is here without making it my whole identity."</div>
             <div class="signal-stack">
@@ -1380,7 +1798,7 @@
               <div class="signal-item"><span>Stress signal</span><span>Mild elevation</span></div>
               <div class="signal-item"><span>Baseline shift</span><span>Slightly quieter</span></div>
             </div>
-            <p class="disclaimer">MoodSignal is a wellness and self-reflection tool, not a medical device, diagnosis, treatment, or substitute for professional care.</p>
+            <p class="disclaimer">MoodSignal is designed for wellness and self-reflection. Medical diagnosis, treatment, and professional care belong with qualified clinicians.</p>
           </aside>
         </div>
       </div>
@@ -1393,7 +1811,7 @@
             <div class="kicker">Daily flow</div>
             <h2>Small ritual, strong continuity.</h2>
           </div>
-          <p class="section-copy">MoodSignal should feel like a daily emotional calibration tool: a notification, a voice moment, a clear profile, one recommended practice, and a private trend line that becomes more meaningful over time.</p>
+          <p class="section-copy">One daily loop: a prompt, a voice moment, a clear profile, one practice, and a private trend line that gains meaning over time.</p>
         </div>
 
         <div class="flow reveal">
@@ -1422,7 +1840,7 @@
             <span>04</span>
             <div>
               <h3>Practice match</h3>
-              <p>Alicia recommends breath, stillness, reflection, journaling, or sound.</p>
+              <p>Match the day to breath, stillness, reflection, journaling, or sound.</p>
             </div>
           </article>
           <article class="flow-step">
@@ -1436,6 +1854,52 @@
       </div>
     </section>
 
+    <section id="goals">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Healthy goals</div>
+            <h2>Turn intention into something the app can hold.</h2>
+          </div>
+          <p class="section-copy">MoodSignal should let users define healthy goals, save them, review them, and connect them to daily signals. Goals become practical when they have a why, a next action, a reminder, and a way to recover after a missed day.</p>
+        </div>
+
+        <div class="goal-system">
+          <article class="goal-builder reveal">
+            <h3>Saved goal card</h3>
+            <div class="goal-field"><small>Goal</small><strong>Sleep by 10:30 on weeknights.</strong></div>
+            <div class="goal-field"><small>Why it matters</small><strong>Better mornings, steadier mood, less late-night scrolling.</strong></div>
+            <div class="goal-field"><small>Next action</small><strong>Phone charges outside the bedroom at 9:45.</strong></div>
+            <div class="goal-field"><small>Recovery rule</small><strong>Missed nights restart with the next sunset.</strong></div>
+            <div class="goal-chips">
+              <span class="goal-chip">daily review</span>
+              <span class="goal-chip">mood-linked</span>
+              <span class="goal-chip">stored in app</span>
+              <span class="goal-chip">private</span>
+            </div>
+          </article>
+
+          <div class="lifestyle-grid">
+            <article class="card reveal">
+              <h3>Goal setting works best when specific.</h3>
+              <p>Use a target behavior, cadence, and review rhythm.</p>
+              <span class="tag"><a href="https://pubmed.ncbi.nlm.nih.gov/29189034/" target="_blank" rel="noopener">goal-setting meta-analysis</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Plans need a trigger.</h3>
+              <p>Implementation intentions define the when, where, and how of the next action.</p>
+              <span class="tag"><a href="https://www.sciencedirect.com/science/article/pii/S0065260106380021" target="_blank" rel="noopener">implementation intentions</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Self-monitoring keeps goals alive.</h3>
+              <p>Goal review, feedback, and planning are core self-regulation tools.</p>
+              <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7571594/" target="_blank" rel="noopener">self-regulation review</a></span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="breath">
       <div class="shell">
         <div class="practice-band">
@@ -1443,20 +1907,20 @@
             <canvas id="breathCanvas" aria-hidden="true"></canvas>
             <div class="breath-copy">
               <strong>Breath is life.</strong>
-              <p>Watch the breath come and go. Do not force it. Do not decorate it. Return to the touch of air and let awareness become simple again.</p>
+              <p>Watch the breath come and go. Let it be simple. Return to the touch of air.</p>
             </div>
           </div>
           <div class="reveal">
             <div class="kicker">Breath meditation</div>
             <h2>Ancient attention, modern nervous-system support.</h2>
-            <p class="section-copy" style="margin-top: 1rem;">This section can mention Anapana as an ancient breath-awareness technique while keeping the app language accessible. The practice is intentionally minimal: sit still, feel the breath, notice wandering, return.</p>
+            <p class="section-copy" style="margin-top: 1rem;">Breath meditation can reference Anapana as an ancient breath-awareness technique while keeping the app language clear: sit still, feel the breath, notice wandering, return.</p>
             <div class="duration-grid" style="margin-top: 1.3rem;">
               <div class="duration"><strong>15</strong><span>Quick reset for stress, transition moments, and emotional interruption.</span></div>
               <div class="duration"><strong>30</strong><span>Daily balance session with enough time for the mind to settle.</span></div>
               <div class="duration"><strong>45</strong><span>Deep practice for emotional regulation and awareness training.</span></div>
               <div class="duration"><strong>60</strong><span>Long sit for users building a serious meditation rhythm.</span></div>
             </div>
-            <p class="disclaimer">The research supports breathwork as a promising stress and mental-health support, while also warning against hype. MoodSignal should keep the claim precise: supportive practice, not cure.</p>
+            <p class="disclaimer">Breathwork research supports stress and mental-health benefits with measured claims. MoodSignal presents breath as a supportive practice.</p>
           </div>
         </div>
       </div>
@@ -1469,22 +1933,22 @@
             <div class="kicker">Perfect Stillness</div>
             <h2>Quiet mental chatter by listening to the body.</h2>
           </div>
-          <p class="section-copy">Perfect Stillness is the accessible product name for body-based awareness practice. It is inspired by body-scan and insight-meditation traditions: move attention through the body, feel what is actually there, release judgment, and move on.</p>
+          <p class="section-copy">Perfect Stillness is body-based awareness: move attention through the body, feel what is present, release judgment, and continue.</p>
         </div>
 
         <div class="grid-2">
           <article class="card reveal">
             <h3>The practice script</h3>
-            <p>Start at the top of the head. Rest attention on one area until sensation is noticed: pressure, warmth, tingling, pulsing, numbness, or nothing at all. Once something is known clearly, move to the next area. The goal is not drama. The goal is contact with reality as it is.</p>
+            <p>Start at the head. Rest attention on one area until sensation is clear: pressure, warmth, tingling, pulsing, numbness, or quiet. Then move on. The practice is direct contact with reality as it is.</p>
             <div class="feature-list">
-              <div class="feature-line"><span>No chasing pleasant sensations.</span></div>
-              <div class="feature-line"><span>No fighting unpleasant sensations.</span></div>
-              <div class="feature-line"><span>No story needed, just observation.</span></div>
+              <div class="feature-line"><span>Let pleasant sensations pass.</span></div>
+              <div class="feature-line"><span>Let unpleasant sensations pass.</span></div>
+              <div class="feature-line"><span>Stay with observation before story.</span></div>
             </div>
           </article>
           <article class="card reveal">
             <h3>Why it belongs in MoodSignal</h3>
-            <p>Voice analysis gives a signal. Perfect Stillness gives a response. The practice trains users to notice sensations before turning them into identity, narrative, or reaction.</p>
+            <p>Voice analysis gives the signal. Perfect Stillness gives the response: notice sensation before it becomes identity, narrative, or reaction.</p>
             <div class="stillness-map" aria-label="Body awareness sequence">
               <div class="body-node">Head</div>
               <div class="body-node">Face</div>
@@ -1504,6 +1968,64 @@
       </div>
     </section>
 
+    <section id="meta">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Meta meditation</div>
+            <h2>A forgiveness practice for every thread of life.</h2>
+          </div>
+          <p class="section-copy">Meta Meditation is a spiritual check-up. Begin with yourself, then move through the people closest to you, the difficult people, and finally the wider world. Wish each person health, love, freedom, and fulfilled purpose.</p>
+          <div style="margin-top: 1rem;">
+            <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4630307/" target="_blank" rel="noopener">loving-kindness meta-analysis</a></span>
+            <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11084121/" target="_blank" rel="noopener">self-forgiveness review</a></span>
+          </div>
+        </div>
+
+        <div class="meta-grid">
+          <article class="meta-prayer reveal">
+            <div>
+              <blockquote>I forgive all who have trespassed against me, and I ask forgiveness from all whom I have trespassed.</blockquote>
+              <p>Repeat slowly. Let each name surface. Let the body soften before moving on.</p>
+            </div>
+            <span class="tag">forgiveness + loving-kindness</span>
+          </article>
+
+          <div class="relation-spiral reveal" aria-label="Meta meditation relationship sequence">
+            <div class="relation-row"><strong>01</strong><div><b>Yourself</b><span>Forgive yourself. Ask forgiveness from yourself. Wish yourself health, love, clarity, and peace.</span></div></div>
+            <div class="relation-row"><strong>02</strong><div><b>Core family</b><span>Significant other, parents, children, grandparents, grandchildren, siblings, and chosen family.</span></div></div>
+            <div class="relation-row"><strong>03</strong><div><b>Friends and helpers</b><span>Mentors, neighbors, teachers, coworkers, protectors, and people who made life lighter.</span></div></div>
+            <div class="relation-row"><strong>04</strong><div><b>Enemies and wounds</b><span>The hard section. Name the people connected to anger, betrayal, shame, rivalry, or fear.</span></div></div>
+            <div class="relation-row"><strong>05</strong><div><b>Public figures</b><span>Politicians, corrupt actors, institutions, strangers, and distant people who still live in the mind.</span></div></div>
+            <div class="relation-row"><strong>06</strong><div><b>All beings</b><span>Close the practice by wishing health, love, safety, and awakening to every life connected to yours.</span></div></div>
+          </div>
+        </div>
+
+        <div class="cleanse-grid reveal" aria-label="Additional soul cleanse tools">
+          <article class="cleanse-card">
+            <h3>Unsent letter</h3>
+            <p>Write the truth, ask forgiveness, offer forgiveness, then archive or release it.</p>
+          </article>
+          <article class="cleanse-card">
+            <h3>Burden inventory</h3>
+            <p>Name resentment, regret, envy, fear, and grief. Assign one clean action or one release.</p>
+          </article>
+          <article class="cleanse-card">
+            <h3>Repair practice</h3>
+            <p>When repair is appropriate, create a simple apology plan with no demand for response.</p>
+          </article>
+          <article class="cleanse-card">
+            <h3>Blessing list</h3>
+            <p>Move through names and wish each person health, love, protection, and fulfilled dreams.</p>
+          </article>
+          <article class="cleanse-card">
+            <h3>Evening release</h3>
+            <p>Before sleep, release one story the body has carried too long.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="messages">
       <div class="shell">
         <div class="section-head reveal">
@@ -1511,13 +2033,13 @@
             <div class="kicker">365 daily messages</div>
             <h2>One year of small, steady returns.</h2>
           </div>
-          <p class="section-copy">The notification library should mix affirmations, devotionals, thoughts, positive quotes, gratitude prompts, breath cues, and one-minute actions. The tone should be warm, spiritual, and broad enough for many users.</p>
+          <p class="section-copy">A year of concise prompts: affirmations, devotionals, gratitude, breath cues, grounded thoughts, and one-minute actions.</p>
         </div>
 
         <div class="message-wall">
           <article class="message-card reveal">
             <small>Affirmation</small>
-            <p>You do not need to win the whole day. Win the next minute.</p>
+            <p>Win the next minute.</p>
             <span>Action: take three slow breaths before answering the next demand.</span>
           </article>
           <article class="message-card reveal">
@@ -1537,7 +2059,7 @@
           </article>
           <article class="message-card reveal">
             <small>Gratitude</small>
-            <p>Find one small thing that did not abandon you today.</p>
+            <p>Find one small thing that stayed.</p>
             <span>Reflection: write a sentence of thanks without forcing positivity.</span>
           </article>
           <article class="message-card reveal">
@@ -1556,6 +2078,145 @@
             <span>Reflection: what truth can be acted on gently today?</span>
           </article>
         </div>
+
+        <div class="content-lab reveal" aria-label="Affirmation and quote content system">
+          <article class="affirmation-demo">
+            <h3>Affirmation stream demo</h3>
+            <p style="margin-top: 0.7rem;">In-app, a calm affirmation can rotate every 20 seconds during rest screens, breath timers, and frequency sessions.</p>
+            <div class="affirmation-frame" style="margin-top: 1rem;">
+              <div>
+                <small>Live affirmation</small>
+                <div id="affirmationText">I can return to peace without rushing the process.</div>
+              </div>
+              <div class="affirmation-meta">
+                <span id="affirmationCount">01 / 08</span>
+                <span>updates every 20s</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="quote-panel">
+            <h3>Quote database</h3>
+            <p style="margin-top: 0.7rem;">MoodSignal should ship with a curated public-domain-first quote library, then connect to licensed open datasets after review. The tone: reflective, positive, memorable.</p>
+            <div class="quote-list">
+              <div class="quote-item">
+                <p>"Know thyself."</p>
+                <span>Delphic maxim</span>
+              </div>
+              <div class="quote-item">
+                <p>"This too shall pass."</p>
+                <span>Traditional proverb</span>
+              </div>
+              <div class="quote-item">
+                <p>"The only way out is through."</p>
+                <span>Robert Frost</span>
+              </div>
+              <div class="quote-item">
+                <p>"What we think, we become."</p>
+                <span>Traditional contemplative saying</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="fasting">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Monthly fasting reset</div>
+            <h2>One optional day for restraint, clarity, and renewal.</h2>
+          </div>
+          <p class="section-copy">MoodSignal can offer a monthly fasting practice: skip breakfast and lunch, hydrate, keep the day quiet, and break the fast gently at dinner. The app should frame this as an optional wellness ritual with safety boundaries.</p>
+        </div>
+
+        <div class="fasting-ritual">
+          <article class="fasting-window reveal">
+            <strong>1 day / month</strong>
+            <span>Morning: water, light movement, no breakfast. Midday: hydrate, reflect, avoid intense training. Evening: simple meal, gratitude, sleep early.</span>
+            <div class="goal-chips">
+              <span class="goal-chip">hydration</span>
+              <span class="goal-chip">low intensity</span>
+              <span class="goal-chip">gentle refeed</span>
+              <span class="goal-chip">opt-in only</span>
+            </div>
+          </article>
+
+          <div class="grid-2">
+            <article class="card reveal">
+              <h3>Intermittent fasting may support metabolic switching.</h3>
+              <p>Reviews describe fasting as a way to move from fed-state metabolism toward fat- and ketone-based energy use.</p>
+              <span class="tag"><a href="https://www.nejm.org/doi/abs/10.1056/NEJMra1905136" target="_blank" rel="noopener">NEJM review</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Mental-health evidence is early.</h3>
+              <p>Depression-focused reviews suggest promise while making clear that clinical evidence is still developing.</p>
+              <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10647529/" target="_blank" rel="noopener">fasting + depression review</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Safety comes first.</h3>
+              <p>People with diabetes, eating-disorder history, pregnancy, kidney or heart concerns, or food-dependent medications need clinician guidance.</p>
+              <span class="tag"><a href="https://magazine.medlineplus.gov/article/5-questions-about-intermittent-fasting/" target="_blank" rel="noopener">NIH MedlinePlus</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>The app logs response, not virtue.</h3>
+              <p>Track mood, hunger, sleep, energy, hydration, and whether the practice felt supportive.</p>
+              <span class="tag"><a href="https://www.hopkinsmedicine.org/health/expert-qa/intermittent-fasting-what-is-it-and-how-does-it-work" target="_blank" rel="noopener">Johns Hopkins</a></span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sleep">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Sleep and screen time</div>
+            <h2>Protect the night so the mind can repair.</h2>
+          </div>
+          <p class="section-copy">MoodSignal should track sleep windows, screen curfews, bedroom light, and morning recovery. The guidance stays simple: darker room, fewer late screens, steadier wake time, and no glowing devices beside the bed.</p>
+        </div>
+
+        <div class="sleep-system">
+          <article class="bedroom-card reveal">
+            <div>
+              <h3>Dark bedroom protocol</h3>
+              <p style="margin-top: 0.75rem;">Cover LEDs, remove glowing chargers, close curtains, charge the phone outside the bedroom, and use an alarm clock that does not light the room.</p>
+            </div>
+            <div class="moon" aria-hidden="true"></div>
+            <div class="sleep-chips">
+              <span class="sleep-chip">dark</span>
+              <span class="sleep-chip">quiet</span>
+              <span class="sleep-chip">cool</span>
+              <span class="sleep-chip">phone out</span>
+            </div>
+          </article>
+
+          <div class="grid-2">
+            <article class="card reveal">
+              <h3>Light at night is linked with sleep problems.</h3>
+              <p>Studies connect indoor nighttime light with poorer sleep health and circadian disruption.</p>
+              <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10851850/" target="_blank" rel="noopener">light-at-night study</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Evening screen use can reduce sleep quality.</h3>
+              <p>Meta-analytic evidence links electronic media use with poorer sleep quality.</p>
+              <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11077410/" target="_blank" rel="noopener">screen + sleep meta-analysis</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Blue-light reduction has a practical role.</h3>
+              <p>Night-mode, dimming, glasses, and device curfews can reduce short-wavelength light exposure.</p>
+              <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10127364/" target="_blank" rel="noopener">blue-light review</a></span>
+            </article>
+            <article class="card reveal">
+              <h3>Tracking should guide behavior.</h3>
+              <p>Wearables and phones can help users notice sleep patterns while avoiding obsession over perfect scores.</p>
+              <span class="tag"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7597680/" target="_blank" rel="noopener">sleep tracking review</a></span>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1564,15 +2225,15 @@
         <div class="section-head reveal">
           <div>
             <div class="kicker">Frequency-assisted relaxation</div>
-            <h2>Sound as support, not spectacle.</h2>
+            <h2>Sound for calm, focus, and rest.</h2>
           </div>
-          <p class="section-copy">MoodSignal can include binaural beats, isochronic tones, ambient music, sleep soundscapes, and breath-and-tone sessions. The evidence language should stay careful: these are relaxation aids, not medical claims.</p>
+          <p class="section-copy">MoodSignal can include binaural beats, isochronic tones, ambient music, sleep soundscapes, and breath-and-tone sessions. Each mode has a clear use case and a measured claim.</p>
         </div>
 
         <div class="sound-grid">
           <article class="sound-mode reveal">
             <h3>Headphones or speakers?</h3>
-            <p style="margin-top: 0.8rem;">Binaural beats require separate left and right channels, so they belong in headphone mode. Speaker mode should use ambient music, isochronic pulses, nature textures, or gentle drones.</p>
+            <p style="margin-top: 0.8rem;">Binaural beats require separate left and right channels. Headphone mode handles binaural tracks. Speaker mode uses ambient music, isochronic pulses, nature textures, and gentle drones.</p>
             <div class="feature-list">
               <div class="feature-line"><span><strong>Headphones:</strong> binaural beat sessions for calm, focus, rest, and meditation.</span></div>
               <div class="feature-line"><span><strong>Speakers:</strong> ambient, isochronic, rain, low drones, soft bells, and guided breath.</span></div>
@@ -1585,6 +2246,37 @@
             <div class="mode-row"><strong>Sleep Descent</strong><span>Delta-style soundscape with no claims beyond relaxation and rest support.</span></div>
           </article>
         </div>
+
+        <div class="tune-up reveal" aria-label="Frequency tune-up presets">
+          <article class="tuner-panel">
+            <small>Frequency Tune-Up</small>
+            <h3 style="margin-top: 0.6rem;">Adjustable presets with a musical body.</h3>
+            <p style="margin-top: 0.75rem;">The goal is a warm 2026 ambient bass playlist feel: soft sub movement, filtered pads, slow sidechain pulse, gentle vibrato, and frequencies blended into music.</p>
+            <div class="preset-buttons" role="group" aria-label="Frequency presets">
+              <button class="preset-button active" type="button" data-name="Schumann Ground" data-hz="7.83 Hz" data-copy="Earth-like low pulse, soft sub layer, rain texture, and wide pads for grounding.">Schumann</button>
+              <button class="preset-button" type="button" data-name="Solfeggio Light" data-hz="528 Hz" data-copy="Warm harmonic center, slow bell shimmer, and bright pads for reflection sessions.">Solfeggio</button>
+              <button class="preset-button" type="button" data-name="Alpha Focus" data-hz="10 Hz beat" data-copy="Headphone binaural mode with calm focus pacing and low-distraction melodic movement.">Alpha</button>
+              <button class="preset-button" type="button" data-name="Theta Drift" data-hz="6 Hz beat" data-copy="Meditation mode with deeper pulsing, softened transients, and spacious reverb.">Theta</button>
+              <button class="preset-button" type="button" data-name="Rife-Inspired Library" data-hz="variable" data-copy="Experimental preset bank presented as sound exploration, with no disease-treatment claims.">Rife-style</button>
+              <button class="preset-button" type="button" data-name="Sleep Descent" data-hz="2-4 Hz feel" data-copy="Slow tempo, low-pass pads, brown noise, and a settling bass bed for evening rest.">Sleep</button>
+            </div>
+            <div class="frequency-readout">
+              <strong id="presetHz">7.83 Hz</strong>
+              <span id="presetName">Schumann Ground</span>
+              <span id="presetCopy">Earth-like low pulse, soft sub layer, rain texture, and wide pads for grounding.</span>
+            </div>
+          </article>
+
+          <article class="tuner-specs">
+            <h3>Programmatic sound design</h3>
+            <div class="feature-list">
+              <div class="feature-line"><span><strong>Web Audio prototype:</strong> oscillators, stereo panners, filters, LFO vibrato, envelopes, and convolution reverb.</span></div>
+              <div class="feature-line"><span><strong>Musical layer:</strong> royalty-free pad loops, sub bass, softened kick pulse, texture beds, and slow melodic fragments.</span></div>
+              <div class="feature-line"><span><strong>Preset data:</strong> base frequency, beat frequency, carrier tones, tempo, scale, texture, session length, headphone requirement.</span></div>
+              <div class="feature-line"><span><strong>Safety controls:</strong> volume ramp, headphone warning, seizure-sensitive visual settings, stop button, and session limits.</span></div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1595,28 +2287,32 @@
             <div class="kicker">Technical blueprint</div>
             <h2>Build the app as a privacy-aware mobile system.</h2>
           </div>
-          <p class="section-copy">The website should show that the idea is not just beautiful. It is technically buildable with React Native, Expo, Firebase, careful audio capture, optional ML services, and a realistic validation roadmap.</p>
+          <p class="section-copy">The product is technically straightforward: Expo mobile client, Firebase identity and data, encrypted audio handling, saved goals, lifestyle logs, a Python signal pipeline, and a validation roadmap.</p>
         </div>
 
         <div class="tech">
           <article class="tech-card reveal">
-            <h3>Mobile app</h3>
+            <h3>Mobile client specs</h3>
             <ul>
-              <li>React Native + Expo for iOS and Android velocity.</li>
-              <li>Expo audio recording, push notifications, and local session timers.</li>
-              <li>Firebase Auth with Google sign-in if accounts are needed.</li>
-              <li>Firestore for user profile, check-ins, practice history, and daily content state.</li>
-              <li>Encrypted storage path for audio, with a delete-after-feature-extraction option.</li>
+              <li>React Native + Expo, TypeScript, Expo Router, EAS Build, iOS and Android.</li>
+              <li>Audio capture target: mono WAV/PCM, 16 kHz minimum, 30-90 second samples.</li>
+              <li>Expo Notifications for daily prompts, practice reminders, and streak recovery.</li>
+              <li>Local session timers for 15, 30, 45, and 60 minute breath or stillness sits.</li>
+              <li>Firebase Auth with Google sign-in; anonymous mode for privacy-first onboarding.</li>
+              <li>Firestore records: profile, baseline, check-ins, goals, fasting logs, sleep windows, screen curfews, practice sessions, daily content, consent state.</li>
+              <li>Goal schema: title, reason, category, cadence, next action, reminder, recovery rule, linked mood tags, active state.</li>
+              <li>Lifestyle schema: fasting date, hydration, energy, sleep, screen curfew, bedroom darkness, morning recovery.</li>
             </ul>
           </article>
           <article class="tech-card reveal">
-            <h3>Voice and ML pipeline</h3>
+            <h3>Voice pipeline specs</h3>
             <ul>
-              <li>Audio quality gate: duration, noise, clipping, volume, and voice activity.</li>
-              <li>Acoustic extraction with openSMILE, librosa, Praat/Parselmouth, or equivalent services.</li>
-              <li>Optional transcription with Whisper for sentiment and reflection analysis.</li>
-              <li>Model path: baseline rules, then XGBoost/LightGBM, then speech embeddings such as wav2vec 2.0 or WavLM.</li>
-              <li>Clinical-grade layer later: consent, validated scales, blinded labels, longitudinal study design.</li>
+              <li>Quality gate: noise floor, clipping, RMS volume, speech duration, silence ratio, voice activity.</li>
+              <li>Acoustic features: F0, pitch variability, speech rate, pause ratio, energy, jitter, shimmer, MFCCs.</li>
+              <li>Optional transcription with Whisper for sentiment, self-reference, rumination, and gratitude markers.</li>
+              <li>Model path: baseline deltas, calibrated rules, XGBoost/LightGBM, then wav2vec 2.0 or WavLM embeddings.</li>
+              <li>Storage policy: extract features, encrypt audio, allow automatic audio deletion after processing.</li>
+              <li>Validation path: PHQ-9/GAD-7 labels, consented longitudinal data, bias checks, blinded evaluation.</li>
             </ul>
           </article>
         </div>
@@ -1624,65 +2320,110 @@
         <div class="grid-3" style="margin-top: 1rem;">
           <article class="card reveal">
             <h3>Validated screeners</h3>
-            <p>PHQ-9 and GAD-7 can be optional self-report screeners, clearly labeled as validated tools rather than MoodSignal diagnoses.</p>
+            <p>PHQ-9 and GAD-7 can run as optional self-report screeners with dated scores, severity bands, and escalation copy.</p>
           </article>
           <article class="card reveal">
             <h3>Safety posture</h3>
-            <p>Use crisis-aware language, clear escalation pathways, and reminders that severe symptoms deserve professional support.</p>
+            <p>Include crisis-aware language, grounding tools, trusted-contact prompts, and professional support links.</p>
           </article>
           <article class="card reveal">
             <h3>Privacy posture</h3>
-            <p>Default to minimal data, user deletion controls, consent-based research use, and local-first analysis where feasible.</p>
+            <p>Use minimal data, deletion controls, consent-based research, and local-first analysis where feasible.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="features">
+    <section id="premium">
       <div class="shell">
         <div class="section-head reveal">
           <div>
-            <div class="kicker">Possible features to add</div>
-            <h2>Make Alicia feel fully outfitted.</h2>
+            <div class="kicker">Premium product layer</div>
+            <h2>What makes MoodSignal best-in-class.</h2>
           </div>
-          <p class="section-copy">These are high-leverage additions that deepen personalization, safety, and credibility without turning MoodSignal into a noisy social app.</p>
+          <p class="section-copy">The premium layer should feel like a personal wellness lab: adaptive, private, evidence-aware, and calm enough to use every day.</p>
         </div>
 
         <div class="features reveal" aria-label="Possible future feature ideas">
           <article class="idea-card">
-            <span>01</span>
-            <h3>Adaptive practice recommendations</h3>
-            <p>Use voice baseline, check-in history, time of day, and past practice outcomes to suggest the smallest useful reset.</p>
+            <div>
+              <span>01</span>
+              <h3>Adaptive practice engine</h3>
+              <p>Use voice baseline, goals, sleep, screen time, fasting logs, and practice outcomes to deliver the right reset at the right moment.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12481328/" target="_blank" rel="noopener">JITAI meta-analysis</a>
           </article>
           <article class="idea-card">
-            <span>02</span>
-            <h3>Private journal with mood-linked prompts</h3>
-            <p>Give prompts based on the day's signal, then surface sentiment trends and recurring themes only to the user.</p>
+            <div>
+              <span>02</span>
+              <h3>HRV biofeedback breathing</h3>
+              <p>Pair paced breathing with wearable HRV feedback so users can train physiological calm, not just read about it.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7988005/" target="_blank" rel="noopener">HRV biofeedback meta-analysis</a>
           </article>
           <article class="idea-card">
-            <span>03</span>
-            <h3>Wearable recovery context</h3>
-            <p>Connect sleep, HRV, steps, and resting heart rate so Alicia can distinguish low mood from low recovery.</p>
+            <div>
+              <span>03</span>
+              <h3>Thought reframing studio</h3>
+              <p>Guide users through cognitive distortions, evidence checks, balanced thoughts, and next actions.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7490682/" target="_blank" rel="noopener">guided iCBT review</a>
           </article>
           <article class="idea-card">
-            <span>04</span>
-            <h3>Crisis-aware safety flow</h3>
-            <p>When severe distress language appears, route to grounding tools, trusted contacts, and professional support resources.</p>
+            <div>
+              <span>04</span>
+              <h3>Values compass</h3>
+              <p>Translate mood signals into values-based actions: one honest step toward health, family, work, service, or faith.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9789494/" target="_blank" rel="noopener">internet ACT meta-analysis</a>
           </article>
           <article class="idea-card">
-            <span>05</span>
-            <h3>Personal Alicia coach</h3>
-            <p>Summarize patterns weekly and suggest tiny next steps with a calm, non-clinical, supportive voice.</p>
+            <div>
+              <span>05</span>
+              <h3>Behavioral activation planner</h3>
+              <p>Schedule small rewarding actions when energy is low: sunlight, walk, call, tidy space, pray, breathe, sleep.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12227033/" target="_blank" rel="noopener">digital BA review</a>
           </article>
           <article class="idea-card">
-            <span>06</span>
-            <h3>Consistency without comparison</h3>
-            <p>Use private streaks, seasonal practices, and completion rituals without leaderboards or social pressure.</p>
+            <div>
+              <span>06</span>
+              <h3>Recovery correlation map</h3>
+              <p>Correlate mood with sleep, HRV, steps, fasting, screen time, voice energy, and completed practices.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11280943/" target="_blank" rel="noopener">sleep/mood wearable review</a>
           </article>
           <article class="idea-card">
-            <span>07</span>
-            <h3>User-controlled export mode</h3>
-            <p>Create a clean PDF summary of mood trends, practices, and screeners that users can choose to share with a clinician.</p>
+            <div>
+              <span>07</span>
+              <h3>Clinician-ready export</h3>
+              <p>Generate a user-controlled PDF with trends, PHQ-9/GAD-7 scores, practices, sleep, goals, and notes.</p>
+            </div>
+            <a class="evidence-link" href="https://pubmed.ncbi.nlm.nih.gov/11556941/" target="_blank" rel="noopener">PHQ-9 validation</a>
+          </article>
+          <article class="idea-card">
+            <div>
+              <span>08</span>
+              <h3>Private content vault</h3>
+              <p>Store favorite quotes, prayers, affirmations, forgiveness lists, unsent letters, and saved practices.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10393216/" target="_blank" rel="noopener">gratitude meta-analysis</a>
+          </article>
+          <article class="idea-card">
+            <div>
+              <span>09</span>
+              <h3>Safety intelligence</h3>
+              <p>Detect severe distress language and surface grounding tools, trusted contacts, and crisis resources.</p>
+            </div>
+            <a class="evidence-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7951936/" target="_blank" rel="noopener">EMI mental-health review</a>
+          </article>
+          <article class="idea-card">
+            <div>
+              <span>10</span>
+              <h3>Local-first privacy mode</h3>
+              <p>Analyze what can be analyzed on-device, encrypt what must sync, and make deletion simple.</p>
+            </div>
+            <a class="evidence-link" href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000002" target="_blank" rel="noopener">mobile mental-health meta-review</a>
           </article>
         </div>
       </div>
@@ -1695,7 +2436,7 @@
             <div class="kicker">Research library</div>
             <h2>Every claim gets a source and a boundary.</h2>
           </div>
-          <p class="section-copy">The science layer should make the page credible without pretending the evidence is stronger than it is. Each citation below connects directly to a MoodSignal feature and states why it matters.</p>
+          <p class="section-copy">Each citation connects to a product decision: voice signals, goals, fasting, sleep, screen time, breath practice, stillness, reflection, sound, mobile delivery, or screeners.</p>
         </div>
 
         <div class="source-grid">
@@ -1716,6 +2457,8 @@
               <li><a href="https://doi.org/10.1001/jamainternmed.2013.13018" target="_blank" rel="noopener">JAMA mindfulness meta-analysis</a>: supports mindfulness programs for psychological stress and well-being outcomes.</li>
               <li><a href="https://pubmed.ncbi.nlm.nih.gov/35538557/" target="_blank" rel="noopener">Body scan meta-analysis</a>: useful for framing Perfect Stillness while acknowledging mixed effects for body scan alone.</li>
               <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12558566/" target="_blank" rel="noopener">Vipassana evidence review</a>: background support for insight-style awareness practices without using that label in product copy.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4630307/" target="_blank" rel="noopener">Loving-kindness meta-analysis</a>: supports Meta Meditation's positive-emotion and goodwill training rationale.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11084121/" target="_blank" rel="noopener">Self-forgiveness review</a>: supports forgiveness as a structured reflective intervention area.</li>
             </ul>
           </article>
 
@@ -1732,9 +2475,44 @@
               <li><a href="https://pubmed.ncbi.nlm.nih.gov/11556941/" target="_blank" rel="noopener">PHQ-9 validation</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/16717171/" target="_blank" rel="noopener">GAD-7 validation</a>: optional validated self-report screeners.</li>
             </ul>
           </article>
+
+          <article class="source-card reveal">
+            <h3>Content databases</h3>
+            <ul>
+              <li><a href="https://github.com/quotable-io/data" target="_blank" rel="noopener">Quotable Data</a>: open-source quote data and API structure for a self-hosted quote library.</li>
+              <li><a href="https://www.kaggle.com/datasets/alvations/quotables" target="_blank" rel="noopener">Quotables</a>: public-domain quote dataset option for seeding a local library after license review.</li>
+              <li><a href="https://github.com/vinitshahdeo/inspirational-quotes" target="_blank" rel="noopener">Inspirational Quotes</a>: MIT-licensed package pattern for quote delivery and randomization.</li>
+              <li>Affirmations should begin as a curated in-house JSON library with explicit tone rules, review status, tags, and source/license fields.</li>
+            </ul>
+          </article>
+
+          <article class="source-card reveal">
+            <h3>Goals, fasting, sleep</h3>
+            <ul>
+              <li><a href="https://pubmed.ncbi.nlm.nih.gov/29189034/" target="_blank" rel="noopener">Goal-setting meta-analysis</a>: supports specific goal setting as a behavior-change tool.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7571594/" target="_blank" rel="noopener">Self-regulation meta-review</a>: supports goal review, self-monitoring, planning, and feedback.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10647529/" target="_blank" rel="noopener">Intermittent fasting and depression review</a>: supports cautious exploration of fasting and mood.</li>
+              <li><a href="https://magazine.medlineplus.gov/article/5-questions-about-intermittent-fasting/" target="_blank" rel="noopener">NIH MedlinePlus fasting guidance</a>: supports safety boundaries and clinician review for higher-risk users.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11077410/" target="_blank" rel="noopener">Electronic media and sleep meta-analysis</a>: supports screen-time guidance near bedtime.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10851850/" target="_blank" rel="noopener">Indoor light at night study</a>: supports dark-bedroom guidance.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7597680/" target="_blank" rel="noopener">Sleep tracking review</a>: supports phone and wearable sleep monitoring with measured interpretation.</li>
+            </ul>
+          </article>
+
+          <article class="source-card reveal">
+            <h3>Premium methods</h3>
+            <ul>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12481328/" target="_blank" rel="noopener">JITAI systematic review/meta-analysis</a>: supports adaptive support delivered near the moment of need.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7988005/" target="_blank" rel="noopener">HRV biofeedback meta-analysis</a>: supports paced physiological feedback for depressive symptoms and autonomic regulation.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7490682/" target="_blank" rel="noopener">Guided iCBT review/meta-analysis</a>: supports digital CBT methods for depression and anxiety in routine care.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9789494/" target="_blank" rel="noopener">Internet ACT meta-analysis</a>: supports acceptance, mindfulness, and values-based action online.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12227033/" target="_blank" rel="noopener">Digital behavioral activation review</a>: supports small rewarding actions as digital depression/anxiety support.</li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11280943/" target="_blank" rel="noopener">Digital sleep, mood, and affect review</a>: supports connecting wearable sleep data with mood tracking.</li>
+            </ul>
+          </article>
         </div>
 
-        <p class="disclaimer">Scientific citations on this website support the product rationale. They do not mean MoodSignal has been clinically validated. Any future clinical claims should require a formal validation study, careful safety review, and appropriate regulatory guidance.</p>
+        <p class="disclaimer">Scientific citations support the product rationale. Clinical claims require formal validation, safety review, and appropriate regulatory guidance.</p>
       </div>
     </section>
   </main>
@@ -1742,7 +2520,7 @@
   <footer class="footer">
     <div class="shell footer-grid">
       <div>
-        <strong>MoodSignal by Alicia</strong>
+        <strong>MoodSignal</strong>
         <p>A research-informed wellness concept for daily emotional calibration: listen, reflect, breathe, and tune.</p>
       </div>
       <a class="button" href="#top">Back to top</a>
@@ -1778,6 +2556,50 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
+
+    const affirmations = [
+      'I can return to peace without rushing the process.',
+      'I release what is finished and meet what is here.',
+      'My breath gives me a clean place to begin.',
+      'I can be honest and gentle at the same time.',
+      'I forgive what I am ready to release.',
+      'I choose one clear action over a hundred anxious thoughts.',
+      'Stillness is available in the next breath.',
+      'I can bless my life without needing it to be perfect.'
+    ];
+
+    const affirmationText = document.getElementById('affirmationText');
+    const affirmationCount = document.getElementById('affirmationCount');
+    let affirmationIndex = 0;
+
+    function showAffirmation(index) {
+      if (!affirmationText || !affirmationCount) return;
+      affirmationText.textContent = affirmations[index];
+      affirmationCount.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(affirmations.length).padStart(2, '0');
+    }
+
+    showAffirmation(affirmationIndex);
+    if (!reduceMotion) {
+      window.setInterval(() => {
+        affirmationIndex = (affirmationIndex + 1) % affirmations.length;
+        showAffirmation(affirmationIndex);
+      }, 20000);
+    }
+
+    const presetButtons = Array.from(document.querySelectorAll('.preset-button'));
+    const presetHz = document.getElementById('presetHz');
+    const presetName = document.getElementById('presetName');
+    const presetCopy = document.getElementById('presetCopy');
+
+    presetButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        presetButtons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        if (presetHz) presetHz.textContent = button.dataset.hz || '';
+        if (presetName) presetName.textContent = button.dataset.name || '';
+        if (presetCopy) presetCopy.textContent = button.dataset.copy || '';
+      });
+    });
 
     function setupCanvas(canvas, draw) {
       const context = canvas.getContext('2d');
